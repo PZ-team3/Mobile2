@@ -11,7 +11,6 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,7 +29,6 @@ import com.example.foodiemeetup.components.MyTextFieldComponent
 import com.example.foodiemeetup.components.TextToLeftComponent
 import com.example.foodiemeetup.models.UserResponseModel
 import com.example.foodiemeetup.ui.theme.BgColor
-import java.util.Date
 
 @Composable
 fun EditProfileScreen(viewModel: ProfileScreenViewModel, navController: NavHostController) {
@@ -52,8 +50,6 @@ fun EditProfileScreen(viewModel: ProfileScreenViewModel, navController: NavHostC
     var email by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
 
-    var endDate by rememberSaveable { mutableStateOf(Date().time) }
-
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -72,9 +68,6 @@ fun EditProfileScreen(viewModel: ProfileScreenViewModel, navController: NavHostC
             helperValue= email,
             onhelperValueChange = { email = it })
         Spacer(modifier = Modifier.height(20.dp))
-        //TextToLeftComponent(20, "Date of birth")
-        //BirthDateCalendarComponent() {endDatee -> endDate = endDatee}
-        //Spacer(modifier = Modifier.height(20.dp))
         TextToLeftComponent(20, "Gender")
         if(!isLoading) {
             gender = GenderRadioButtons("${user.gender}")

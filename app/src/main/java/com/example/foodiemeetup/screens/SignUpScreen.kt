@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -21,17 +22,22 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.foodiemeetup.R
 import com.example.foodiemeetup.ViewModels.LoginViewModel
-import com.example.foodiemeetup.models.RegisterModel
+import com.example.foodiemeetup.components.BirthDateCalendarComponent
 import com.example.foodiemeetup.components.ButtonComponent
 import com.example.foodiemeetup.components.CheckboxComponent
 import com.example.foodiemeetup.components.ClickableLoginTextComponent
 import com.example.foodiemeetup.components.DividerTextComponent
+import com.example.foodiemeetup.components.GenderRadioButtons
 import com.example.foodiemeetup.components.HeadingTextComponent
 import com.example.foodiemeetup.components.MyTextFieldComponent
 import com.example.foodiemeetup.components.PasswordTextFieldComponent
 import com.example.foodiemeetup.components.TextComponent
+import com.example.foodiemeetup.components.TextToLeftComponent
+import com.example.foodiemeetup.models.RegisterModel
 import com.example.foodiemeetup.navigation.FoodieMeetUpRouter
 import com.example.foodiemeetup.navigation.Screen
+import java.util.Calendar
+import java.util.Date
 
 
 @Composable
@@ -47,7 +53,14 @@ Surface (
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var username by remember { mutableStateOf("") }
-    val user = RegisterModel(username = username,email = email,password = password)
+    var gender by remember { mutableStateOf("") }
+    var birthDate by rememberSaveable { mutableStateOf(Date(Calendar.YEAR-18, Calendar.MONTH, Calendar.DAY_OF_MONTH).time) }
+    val user = RegisterModel(
+        username = username,
+        email = email,
+        password = password,
+        gender =gender,
+        birthDate =birthDate.toFormattedString())
     var isChecked by remember {
         mutableStateOf(false)
     }
@@ -60,6 +73,10 @@ Surface (
         MyTextFieldComponent(labelValue = stringResource(id = R.string.first_name),painterResource(id = R.drawable.profile),helperValue= username,onhelperValueChange = { username = it })
         MyTextFieldComponent(labelValue = stringResource(id = R.string.email),painterResource(id = R.drawable.message),helperValue= email,onhelperValueChange = { email = it })
         PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),painterResource(id = R.drawable.ic_lock), helperValue= password,onhelperValueChange = { password = it })
+        Spacer(modifier = Modifier.height(7.dp))
+        BirthDateCalendarComponent() {endDatee -> birthDate = endDatee}
+        TextToLeftComponent(20, "Gender")
+        gender = GenderRadioButtons("")
         CheckboxComponent(value = stringResource(id = R.string.terms_and_conditions), onTextSelected = {
             FoodieMeetUpRouter.navigateTo(Screen.TermsAndConditionsScreen)},  onCheckedChange = {
             isChecked = it

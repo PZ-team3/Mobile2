@@ -78,7 +78,11 @@ fun PreferencesScreen(viewModel: PreferencesScreenViewModel, navController: NavH
             Spacer(modifier = Modifier.height(20.dp))
             RangeSlider(
                 value = sliderPosition,
-                onValueChange = { sliderPosition = it },
+                onValueChange = {
+                    sliderPosition = it
+                    minAge = sliderPosition.start.toInt()
+                    maxAge = sliderPosition.endInclusive.toInt()
+                                },
                 onValueChangeFinished = {
                     minAge = sliderPosition.start.toInt()
                     maxAge = sliderPosition.endInclusive.toInt()
