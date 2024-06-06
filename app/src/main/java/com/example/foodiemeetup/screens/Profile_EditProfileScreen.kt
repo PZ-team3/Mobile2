@@ -76,6 +76,7 @@ fun EditProfileScreen(viewModel: ProfileScreenViewModel, navController: NavHostC
         Spacer(modifier = Modifier.height(24.dp))
         ButtonComponent(value = "Update Info", onButtonClicked = {
             if(email.isEmpty()){email = user.email}
+            if(gender.isEmpty()){gender = user.gender}
             viewModel.postUserUpdate(token, context, email, gender)
             navController.navigate(route = "Edit")
         },isEnabled = true)
