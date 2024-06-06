@@ -93,10 +93,12 @@ fun HomeMatchScreen(viewModel: HomeMatchScreenViewModel, navController: NavHostC
                             Spacer(modifier = Modifier.height(25.dp))
                         }
                     }
+                    item {
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
                 }
             } else {
                 TextToLeftComponent(20, "There are none events for this place that matches your preferences.")
-                //TextToLeftComponent(20, "Create one!")
             }
             Spacer(modifier = Modifier.height(15.dp))
         }

@@ -50,13 +50,15 @@ fun ChangePasswordScreen(viewModel: PasswordChangeScreenViewModel, navController
     ) {
         HeadingTextComponent(value = "Change Password")
         Spacer(modifier = Modifier.height(28.dp))
-        TextToLeftComponent(20, "Old password")
+        /*TextToLeftComponent(20, "Old password")
         PasswordTextFieldComponent(
             labelValue = stringResource(id = R.string.password),
             painterResource(id = R.drawable.ic_lock),
             helperValue = oldPassword,
             onhelperValueChange = { oldPassword = it })
         Spacer(modifier = Modifier.height(20.dp))
+
+         */
         TextToLeftComponent(20, "New password")
         PasswordTextFieldComponent(
             labelValue = stringResource(id = R.string.password),

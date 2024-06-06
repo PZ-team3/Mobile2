@@ -77,7 +77,7 @@ fun HomeScreen(viewModel: HomeScreenViewModel, navController: NavHostController)
     Configuration.getInstance().load(context, context.getSharedPreferences("osmdroid", 0))
 
         // Wyświetl ekran ładowania, jeśli dane są w trakcie ładowania
-        if (isLoading) {
+        if (isLoading && points.size == 0) {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center
