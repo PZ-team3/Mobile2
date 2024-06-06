@@ -383,24 +383,24 @@ fun ProfileClickableItem(value: String, icon: ImageVector, iconTint: String, onB
     Button(
         modifier = Modifier
             .shadow(
-                elevation = 10.dp, shape = RoundedCornerShape(50.dp),
+                elevation = 10.dp, shape = RoundedCornerShape(60.dp),
                 ambientColor = Color.Black, spotColor = Color.Black
             )
             .fillMaxWidth()
-            .heightIn(50.dp),
+            .heightIn(60.dp),
         onClick = {
             onButtonClicked()
         },
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(Color.Transparent),
-        shape = RoundedCornerShape(50.dp),
+        shape = RoundedCornerShape(60.dp),
         enabled = isEnabled
     ) {
         Row(
             modifier = Modifier
                 .background(color = Color.White)
                 .fillMaxSize()
-                .padding(start = 30.dp, top = 10.dp, bottom = 10.dp, end = 20.dp),
+                .padding(start = 30.dp, top = 15.dp, bottom = 15.dp, end = 20.dp),
             horizontalArrangement = Arrangement.spacedBy(20.dp),
             verticalAlignment = Alignment.CenterVertically
 
@@ -478,11 +478,7 @@ fun BirthDateCalendarComponent(endDate: (Long) -> Unit) {
     val year: Int = calendar.get(Calendar.YEAR)-18
     val month: Int = calendar.get(Calendar.MONTH)
     val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
-    /*
-    val year: Int = calendar.get(Calendar.YEAR)
-    val month: Int = calendar.get(Calendar.MONTH)
-    val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
-     */
+
     calendar.time = Date(Calendar.YEAR-18, Calendar.MONTH, Calendar.DAY_OF_MONTH)
 
     val datePickerDialog =
