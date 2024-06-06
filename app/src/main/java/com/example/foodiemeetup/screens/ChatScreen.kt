@@ -1,6 +1,5 @@
 package com.example.foodiemeetup.screens
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -34,17 +33,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
-import com.example.foodiemeetup.ViewModels.ChatPeopleViewModel
 import com.example.foodiemeetup.ViewModels.ChatScreenViewModel
 import com.example.foodiemeetup.ViewModels.PreferencesManager
 import com.example.foodiemeetup.components.HeadingTextComponent
-import com.example.foodiemeetup.components.MatchUsers
-import com.example.foodiemeetup.models.AvailableChat
 import com.example.foodiemeetup.models.MessageRequest
 import com.example.foodiemeetup.models.MessageResponse
 import com.example.foodiemeetup.ui.theme.Primary
 import com.example.foodiemeetup.ui.theme.Secondary
+import kotlinx.coroutines.delay
 
 @Composable
 fun ChatScreen(viewModel: ChatScreenViewModel, chatId: Int, username : String) {
@@ -54,8 +50,12 @@ fun ChatScreen(viewModel: ChatScreenViewModel, chatId: Int, username : String) {
     var userMatches: List<MessageResponse> by remember { mutableStateOf(listOf()) }
     val listState = rememberLazyListState()
 
-    viewModel.getMessages(token, chatId, 100, 0, context) { uM -> userMatches = uM }
-
+    LaunchedEffect(Unit) {
+        while(true) {
+            viewModel.getMessages(token, chatId, 100, 0, context) { uM -> userMatches = uM }
+            delay(1000)
+        }
+    }
     LaunchedEffect(userMatches) {
         if (userMatches.isNotEmpty()) {
             listState.scrollToItem(userMatches.size - 1)
