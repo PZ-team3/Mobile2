@@ -116,7 +116,7 @@ fun EventsScreen(viewModel: EventsScreenViewModel, navController: NavHostControl
 
             }
         }
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         
         HorizontalPager(state = pagerState,
             modifier = Modifier
@@ -127,6 +127,9 @@ fun EventsScreen(viewModel: EventsScreenViewModel, navController: NavHostControl
                 var selected = false
                 LazyColumn(modifier = Modifier.weight(1f)
                     .padding(start=30.dp, end=30.dp)) {
+                    item {
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
                     for (userMatch in userMatches) {
                         if(userMatch.matchedUser == myUsername){
                             var temp = userMatch.matchedUser
@@ -152,6 +155,9 @@ fun EventsScreen(viewModel: EventsScreenViewModel, navController: NavHostControl
                             Spacer(modifier = Modifier.height(20.dp))
                         }
                     }
+                    item {
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
                 }
             }
             else{
@@ -160,6 +166,9 @@ fun EventsScreen(viewModel: EventsScreenViewModel, navController: NavHostControl
 
                 LazyColumn(modifier = Modifier.weight(1f)
                     .padding(start=30.dp, end=30.dp)) {
+                    item {
+                        Spacer(modifier = Modifier.height(10.dp))
+                    }
                     for (userMatch in userAwaiatingMatches) {
                         var selected = false
                         if(selMatch == userMatch) {
@@ -189,6 +198,9 @@ fun EventsScreen(viewModel: EventsScreenViewModel, navController: NavHostControl
                         item {
                             Spacer(modifier = Modifier.height(20.dp))
                         }
+                    }
+                    item {
+                        Spacer(modifier = Modifier.height(10.dp))
                     }
                 }
             }

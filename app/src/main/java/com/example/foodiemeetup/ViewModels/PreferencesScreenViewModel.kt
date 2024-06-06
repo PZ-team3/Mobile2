@@ -69,7 +69,7 @@ class PreferencesScreenViewModel  : ViewModel()  {
                     } else {
                         val responseBody = response.errorBody()
                         val message = responseBody?.string()
-                        Toast.makeText(context, "Response:" + message, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Response:" + message, Toast.LENGTH_SHORT).show()
                     }
                 }
 
@@ -98,7 +98,7 @@ class PreferencesScreenViewModel  : ViewModel()  {
                     } else {
                         val responseBody = response.errorBody()
                         val message = responseBody?.string()
-                        Toast.makeText(context, "Response:" + message, Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "Response:" + message, Toast.LENGTH_SHORT).show()
                     }
                 }
 

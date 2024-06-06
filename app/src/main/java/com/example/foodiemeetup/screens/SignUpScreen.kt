@@ -75,7 +75,7 @@ Surface (
         PasswordTextFieldComponent(labelValue = stringResource(id = R.string.password),painterResource(id = R.drawable.ic_lock), helperValue= password,onhelperValueChange = { password = it })
         Spacer(modifier = Modifier.height(7.dp))
         BirthDateCalendarComponent() {endDatee -> birthDate = endDatee}
-        TextToLeftComponent(20, "Gender")
+        TextToLeftComponent(18, "Gender")
         gender = GenderRadioButtons("")
         CheckboxComponent(value = stringResource(id = R.string.terms_and_conditions), onTextSelected = {
             FoodieMeetUpRouter.navigateTo(Screen.TermsAndConditionsScreen)},  onCheckedChange = {
