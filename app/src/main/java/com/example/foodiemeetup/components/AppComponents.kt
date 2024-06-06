@@ -34,7 +34,6 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.RadioButton
 import androidx.compose.material3.Text
@@ -470,22 +469,27 @@ fun BirthDateCalendarComponent(endDate: (Long) -> Unit) {
     val interactionSource = remember { MutableInteractionSource() }
     val isPressed: Boolean by interactionSource.collectIsPressedAsState()
 
-    val currentDate = Date().toFormattedString()
+    val currentDate = Date(106, 6, 8).toFormattedString()
     var selectedDate by rememberSaveable { mutableStateOf(currentDate) }
 
     val context = LocalContext.current
 
     val calendar = Calendar.getInstance()
+    val year: Int = calendar.get(Calendar.YEAR)-18
+    val month: Int = calendar.get(Calendar.MONTH)
+    val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+    /*
     val year: Int = calendar.get(Calendar.YEAR)
     val month: Int = calendar.get(Calendar.MONTH)
     val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
-    calendar.time = Date()
+     */
+    calendar.time = Date(Calendar.YEAR-18, Calendar.MONTH, Calendar.DAY_OF_MONTH)
 
     val datePickerDialog =
         DatePickerDialog(context, { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
             val newDate = Calendar.getInstance()
             newDate.set(year, month, dayOfMonth)
-            selectedDate = "${month.toMonthName()} $dayOfMonth, $year"
+            selectedDate = "$dayOfMonth ${month.toMonthName()} $year"
             endDate(newDate.timeInMillis)
         }, year, month, day)
 
@@ -493,7 +497,7 @@ fun BirthDateCalendarComponent(endDate: (Long) -> Unit) {
     OutlinedTextField(
         modifier = Modifier.fillMaxWidth(),
         readOnly = true,
-        value = selectedDate,
+        value = "Birth date: " + selectedDate,
         onValueChange = {},
         trailingIcon = { Icons.Default.DateRange },
         interactionSource = interactionSource,
