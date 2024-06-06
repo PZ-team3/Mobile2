@@ -434,8 +434,10 @@ fun GenderRadioButtons(gender: String) : String {
 
     val items = listOf("Female", "Male")
     Row(
-        modifier = Modifier.padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
         ) {
         items.forEach { item ->
             Row(
@@ -500,6 +502,52 @@ fun BirthDateCalendarComponent(endDate: (Long) -> Unit) {
         colors = TextFieldDefaults.outlinedTextFieldColors(
             focusedBorderColor = Primary
         ),
+        textStyle = TextStyle(fontSize = 15.sp),
+    )
+
+    if (isPressed) {
+        datePickerDialog.show()
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun EventDateCalendarComponent(endDate: (Long) -> Unit) {
+
+    val interactionSource = remember { MutableInteractionSource() }
+    val isPressed: Boolean by interactionSource.collectIsPressedAsState()
+
+    val currentDate = Date().toFormattedString()
+    var selectedDate by rememberSaveable { mutableStateOf(currentDate) }
+
+    val context = LocalContext.current
+
+    val calendar = Calendar.getInstance()
+    val year: Int = calendar.get(Calendar.YEAR)
+    val month: Int = calendar.get(Calendar.MONTH)
+    val day: Int = calendar.get(Calendar.DAY_OF_MONTH)
+
+    calendar.time = Date()
+
+    val datePickerDialog =
+        DatePickerDialog(context, { _: DatePicker, year: Int, month: Int, dayOfMonth: Int ->
+            val newDate = Calendar.getInstance()
+            newDate.set(year, month, dayOfMonth)
+            selectedDate = "$dayOfMonth ${month.toMonthName()} $year"
+            endDate(newDate.timeInMillis)
+        }, year, month, day)
+
+
+    OutlinedTextField(
+        modifier = Modifier.fillMaxWidth(),
+        readOnly = true,
+        value = selectedDate,
+        onValueChange = {},
+        trailingIcon = { Icons.Default.DateRange },
+        interactionSource = interactionSource,
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            focusedBorderColor = Primary
+        ),
     )
 
     if (isPressed) {
@@ -525,8 +573,10 @@ fun PreferenceGenderRadioButtons(gender: String) : String {
 
     val items = listOf("Female", "Male", "Both")
     Row(
-        modifier = Modifier.padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp)
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceEvenly,
+        verticalAlignment = Alignment.CenterVertically
     ) {
         items.forEach { item ->
             Row(

@@ -39,7 +39,7 @@ import androidx.navigation.NavHostController
 import com.example.foodiemeetup.R
 import com.example.foodiemeetup.ViewModels.HomeScreenViewModel
 import com.example.foodiemeetup.ViewModels.PreferencesManager
-import com.example.foodiemeetup.components.BirthDateCalendarComponent
+import com.example.foodiemeetup.components.EventDateCalendarComponent
 import com.example.foodiemeetup.components.HeadingTextComponent
 import com.example.foodiemeetup.components.TextToLeftComponent
 import com.example.foodiemeetup.models.CreateMatchModel
@@ -276,8 +276,7 @@ fun ChosenPlaceDialog(onDismiss:() -> Unit, onConfirm: (CreateMatchModel) -> Uni
                 TextToLeftComponent(20, "Pick date")
                 Spacer(modifier = Modifier.height(10.dp))
                 var date by rememberSaveable { mutableStateOf(Date().time) }
-                BirthDateCalendarComponent() { endDatee -> date = endDatee }
-
+                EventDateCalendarComponent() { endDatee -> date = endDatee }
 
                 Spacer(modifier = Modifier.height(20.dp))
                 TextToLeftComponent(20, "Set time")
