@@ -46,7 +46,7 @@ class PreferencesScreenViewModel  : ViewModel()  {
                 }
 
                 override fun onFailure(call: Call<PreferencesResponseModel?>, t: Throwable) {
-                    Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
+                    //Toast.makeText(context, "Error", Toast.LENGTH_SHORT).show()
                 }
 
             })

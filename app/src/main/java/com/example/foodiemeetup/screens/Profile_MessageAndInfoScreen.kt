@@ -74,8 +74,12 @@ fun SendUsAMessageScreen(viewModel: ProfileScreenViewModel, navController: NavHo
         )
         Spacer(modifier = Modifier.height(20.dp))
         ButtonComponent(value = "Send", onButtonClicked = {
-            navController.navigate(route = "Message")
-            Toast.makeText(context, "Message has been sent!", Toast.LENGTH_SHORT).show()
+            if(subject.isEmpty() || text.isEmpty()){
+                Toast.makeText(context, "Subject or message is empty!", Toast.LENGTH_SHORT).show()
+            }else {
+                navController.navigate(route = "Message")
+                Toast.makeText(context, "Message has been sent!", Toast.LENGTH_SHORT).show()
+            }
         },isEnabled = true)
     }
 
