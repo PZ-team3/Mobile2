@@ -658,7 +658,7 @@ fun MatchedItem(
     placeAddress: String,
     date: String,
     time: String,
-    gender: String,
+    gender: String?,
     selected: Boolean,
     onButtonClicked: () -> Unit,
     isEnabled: Boolean = false

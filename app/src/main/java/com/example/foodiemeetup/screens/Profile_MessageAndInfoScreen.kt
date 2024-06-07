@@ -72,7 +72,7 @@ fun SendUsAMessageScreen(viewModel: ProfileScreenViewModel, navController: NavHo
                     .height(200.dp)
                     .verticalScroll(rememberScrollState()),
                 maxLines = 20,
-                placeholder = { Text("Enter your text here:") },
+                placeholder = { Text("Enter your message here:") },
             )
             Spacer(modifier = Modifier.height(20.dp))
             ButtonComponent(value = "Send", onButtonClicked = {
@@ -123,7 +123,7 @@ fun FAQScreen(viewModel: ProfileScreenViewModel, navController: NavHostControlle
 
         TextToLeftComponent(size = 20, value = "My friend created an event. Why can't I see it?")
         TextToLeftComponent(size = 17, value = "Maybe your friend don't match your preferences. " +
-                "Or maybe it's the opposite and You don't fit in your friend's. Try to change it in Prefences Screen")
+                "Or maybe it's the opposite and You don't fit in your friend's. Try to change it in Preferences Screen")
         Spacer(modifier = Modifier.height(15.dp))
 
 
