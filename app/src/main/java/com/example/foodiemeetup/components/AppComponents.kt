@@ -383,7 +383,7 @@ fun ProfileClickableItem(value: String, icon: ImageVector, iconTint: String, onB
     Button(
         modifier = Modifier
             .shadow(
-                elevation = 10.dp, shape = RoundedCornerShape(60.dp),
+                elevation = 10.dp, shape = RoundedCornerShape(20.dp),
                 ambientColor = Color.Black, spotColor = Color.Black
             )
             .fillMaxWidth()
@@ -393,7 +393,7 @@ fun ProfileClickableItem(value: String, icon: ImageVector, iconTint: String, onB
         },
         contentPadding = PaddingValues(),
         colors = ButtonDefaults.buttonColors(Color.Transparent),
-        shape = RoundedCornerShape(60.dp),
+        shape = RoundedCornerShape(20.dp),
         enabled = isEnabled
     ) {
         Row(
