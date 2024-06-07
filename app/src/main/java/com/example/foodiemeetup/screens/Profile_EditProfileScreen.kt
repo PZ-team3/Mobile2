@@ -7,8 +7,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,51 +36,57 @@ fun EditProfileScreen(viewModel: ProfileScreenViewModel, navController: NavHostC
     val context = LocalContext.current
     val appPreferences = remember { PreferencesManager.create(context) }
     val token = appPreferences.getString("token","")
+    val keyy = remember { mutableStateOf("x")}
 
     var user: UserResponseModel by remember { mutableStateOf(UserResponseModel()) }
-
-    val isLoading = viewModel.isLoading
-
-
-    if (isLoading) {
-        LaunchedEffect(Unit) {
-            viewModel.getUserData(token, context) { userr -> user = userr }
-        }
-    }
     var email by remember { mutableStateOf("") }
     var gender by remember { mutableStateOf("") }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BgColor)
-            .padding(top = 28.dp, start = 28.dp, end = 28.dp)
+    val isLoading = viewModel.isLoading
 
-    ) {
-        HeadingTextComponent(value = "Edit Profile")
-        Spacer(modifier = Modifier.height(28.dp))
-        TextToLeftComponent(20, "Username: ${user.username}")
-        Spacer(modifier = Modifier.height(20.dp))
-        TextToLeftComponent(20, "Email")
-        MyTextFieldComponent(
-            labelValue = user.email,
-            painterResource(id = R.drawable.message),
-            helperValue= email,
-            onhelperValueChange = { email = it })
-        Spacer(modifier = Modifier.height(20.dp))
-        TextToLeftComponent(20, "Gender")
-        if(!isLoading) {
-            gender = GenderRadioButtons("${user.gender}")
+    key(keyy.value) {
+        keyy.value = "x"
+
+        viewModel.getUserData(token, context) { userr -> user = userr }
+
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(BgColor)
+                .padding(top = 28.dp, start = 28.dp, end = 28.dp)
+
+        ) {
+            HeadingTextComponent(value = "Edit Profile")
+            Spacer(modifier = Modifier.height(28.dp))
+            TextToLeftComponent(20, "Username: ${user.username}")
+            Spacer(modifier = Modifier.height(20.dp))
+            TextToLeftComponent(20, "Email")
+            MyTextFieldComponent(
+                labelValue = user.email,
+                painterResource(id = R.drawable.message),
+                helperValue = email,
+                onhelperValueChange = { email = it })
+            Spacer(modifier = Modifier.height(20.dp))
+            TextToLeftComponent(20, "Gender")
+            if (!isLoading) {
+                gender = GenderRadioButtons("${user.gender}")
+            } else {
+                gender = GenderRadioButtons("${user.gender}")
+            }
+            Spacer(modifier = Modifier.height(24.dp))
+            ButtonComponent(value = "Update Info", onButtonClicked = {
+                if (email.isEmpty()) {
+                    email = user.email
+                }
+                if (gender.isEmpty()) {
+                    gender = user.gender
+                }
+                viewModel.postUserUpdate(token, context, email, gender)
+                email = ""
+                keyy.value = "y"
+            }, isEnabled = true)
+
         }
-        else{ gender = GenderRadioButtons("${user.gender}")}
-        Spacer(modifier = Modifier.height(24.dp))
-        ButtonComponent(value = "Update Info", onButtonClicked = {
-            if(email.isEmpty()){email = user.email}
-            if(gender.isEmpty()){gender = user.gender}
-            viewModel.postUserUpdate(token, context, email, gender)
-            navController.navigate(route = "Edit")
-        },isEnabled = true)
-
     }
 }
 
