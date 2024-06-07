@@ -47,6 +47,7 @@ import com.example.foodiemeetup.models.MapPointsResponseModel
 import com.example.foodiemeetup.ui.theme.BgColor
 import com.example.foodiemeetup.ui.theme.Primary
 import com.example.foodiemeetup.ui.theme.Secondary
+import kotlinx.coroutines.delay
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.GeoPoint
@@ -72,12 +73,13 @@ fun HomeScreen(viewModel: HomeScreenViewModel, navController: NavHostController)
 
     LaunchedEffect(Unit) {
         viewModel.getMapPoints(context) { pointss -> points = pointss }
+        delay(1000)
     }
 
     Configuration.getInstance().load(context, context.getSharedPreferences("osmdroid", 0))
 
         // Wyświetl ekran ładowania, jeśli dane są w trakcie ładowania
-        if (isLoading && points.size == 0) {
+        if (isLoading || points.size == 0) {
             Box(
                 modifier = Modifier.fillMaxSize(),
                 contentAlignment = Alignment.Center

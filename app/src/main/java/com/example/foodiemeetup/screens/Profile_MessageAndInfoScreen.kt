@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.key
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -26,7 +27,6 @@ import com.example.foodiemeetup.ViewModels.ProfileScreenViewModel
 import com.example.foodiemeetup.components.ButtonComponent
 import com.example.foodiemeetup.components.HeadingTextComponent
 import com.example.foodiemeetup.components.TextToLeftComponent
-import com.example.foodiemeetup.models.UserResponseModel
 import com.example.foodiemeetup.ui.theme.BgColor
 
 
@@ -37,53 +37,57 @@ fun SendUsAMessageScreen(viewModel: ProfileScreenViewModel, navController: NavHo
     val appPreferences = remember { PreferencesManager.create(context) }
     val token = appPreferences.getString("token","")
 
-    val user: UserResponseModel = UserResponseModel()
     var subject by remember { mutableStateOf("") }
     var text by remember { mutableStateOf("") }
+    val keyy = remember { mutableStateOf("x")}
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(BgColor)
-            .padding(top = 28.dp, start = 28.dp, end = 28.dp)
-
-    ) {
-        HeadingTextComponent(value = "Send Us A Message")
-        Spacer(modifier = Modifier.height(28.dp))
-        TextToLeftComponent(size = 20, value = "Do You have a question?")
-        TextToLeftComponent(size = 20, value = "Do You want to add new place for meeting?")
-        Spacer(modifier = Modifier.height(5.dp))
-        TextToLeftComponent(size = 25, value = "Write to us!")
-        Spacer(modifier = Modifier.height(20.dp))
-        TextField(
-            value = subject,
-            onValueChange = { subject = it },
-            modifier = Modifier.fillMaxWidth(),
-            maxLines = 1,
-            placeholder = { Text("Subject:") },
-        )
-        TextField(
-            value = text,
-            onValueChange = { text = it },
+    key(keyy.value) {
+        keyy.value = "x"
+        Column(
             modifier = Modifier
-                .fillMaxWidth()
-                .height(200.dp)
-                .verticalScroll(rememberScrollState()),
-            maxLines = 20,
-            placeholder = { Text("Enter your text here:") },
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        ButtonComponent(value = "Send", onButtonClicked = {
-            if(subject.isEmpty() || text.isEmpty()){
-                Toast.makeText(context, "Subject or message is empty!", Toast.LENGTH_SHORT).show()
-            }else {
-                navController.navigate(route = "Message")
-                Toast.makeText(context, "Message has been sent!", Toast.LENGTH_SHORT).show()
-            }
-        },isEnabled = true)
+                .fillMaxSize()
+                .background(BgColor)
+                .padding(top = 28.dp, start = 28.dp, end = 28.dp)
+
+        ) {
+            HeadingTextComponent(value = "Send Us A Message")
+            Spacer(modifier = Modifier.height(28.dp))
+            TextToLeftComponent(size = 20, value = "Do You have a question?")
+            TextToLeftComponent(size = 20, value = "Do You want to add new place for meeting?")
+            Spacer(modifier = Modifier.height(5.dp))
+            TextToLeftComponent(size = 25, value = "Write to us!")
+            Spacer(modifier = Modifier.height(20.dp))
+            TextField(
+                value = subject,
+                onValueChange = { subject = it },
+                modifier = Modifier.fillMaxWidth(),
+                maxLines = 1,
+                placeholder = { Text("Subject:") },
+            )
+            TextField(
+                value = text,
+                onValueChange = { text = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(200.dp)
+                    .verticalScroll(rememberScrollState()),
+                maxLines = 20,
+                placeholder = { Text("Enter your text here:") },
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            ButtonComponent(value = "Send", onButtonClicked = {
+                if (subject.isEmpty() || text.isEmpty()) {
+                    Toast.makeText(context, "Subject or message is empty!", Toast.LENGTH_SHORT)
+                        .show()
+                } else {
+                    Toast.makeText(context, "Message has been sent!", Toast.LENGTH_SHORT).show()
+                    subject = ""
+                    text = ""
+                    keyy.value = "y"
+                }
+            }, isEnabled = true)
+        }
     }
-
-
 }
 
 @Composable
@@ -118,7 +122,7 @@ fun FAQScreen(viewModel: ProfileScreenViewModel, navController: NavHostControlle
         Spacer(modifier = Modifier.height(28.dp))
 
         TextToLeftComponent(size = 20, value = "My friend created an event. Why can't I see it?")
-        TextToLeftComponent(size = 15, value = "Maybe your friend don't match your preferences. " +
+        TextToLeftComponent(size = 17, value = "Maybe your friend don't match your preferences. " +
                 "Or maybe it's the opposite and You don't fit in your friend's. Try to change it in Prefences Screen")
         Spacer(modifier = Modifier.height(15.dp))
 

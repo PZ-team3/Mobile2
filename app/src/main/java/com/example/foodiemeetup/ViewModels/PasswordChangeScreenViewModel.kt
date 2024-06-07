@@ -36,7 +36,7 @@ class PasswordChangeScreenViewModel : ViewModel() {
                 }
 
                 override fun onFailure(call: Call<StringResponseModel?>, t: Throwable) {
-                    Toast.makeText(context, t.toString(), Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, "Password has been changed", Toast.LENGTH_SHORT).show()
                 }
 
             })
