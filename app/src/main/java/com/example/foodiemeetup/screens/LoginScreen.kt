@@ -75,9 +75,11 @@ fun LoginScreen(viewModel: LoginViewModel) {
                 appPreferences.saveString("username", email)
                 viewModel.loginUser(credentials, context) { token ->
                     appPreferences.saveString("token", "Bearer " + token)
-                    if (!token.equals("0"))
+                    if (!token.equals("0") && email.isNotEmpty() && password.isNotEmpty()){
                         FoodieMeetUpRouter.navigateTo(Screen.MainPage)
-
+                        email = ""
+                        password = ""
+                    }
                 }
             }, isEnabled = true)
 
