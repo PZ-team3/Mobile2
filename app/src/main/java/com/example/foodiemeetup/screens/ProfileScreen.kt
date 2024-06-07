@@ -59,7 +59,7 @@ fun ProfileScreen(viewModel: ProfileScreenViewModel, navController: NavHostContr
 
     val context = LocalContext.current
     val appPreferences = remember { PreferencesManager.create(context) }
-    val token by remember { mutableStateOf(appPreferences.getString("token")) }
+    var token by remember { mutableStateOf(appPreferences.getString("token")) }
 
     var user: UserResponseModel by remember { mutableStateOf(UserResponseModel()) }
     viewModel.getUserData(token, context) { userr ->  user = userr }
@@ -177,7 +177,6 @@ fun ProfileScreen(viewModel: ProfileScreenViewModel, navController: NavHostContr
             item{
                 ButtonComponent(value = "Logout", onButtonClicked = {
                     appPreferences.saveString("token", "0")
-
                     FoodieMeetUpRouter.navigateTo(Screen.LoginScreen)
                 },isEnabled = true)
             }
